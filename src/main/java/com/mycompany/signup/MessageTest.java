@@ -14,7 +14,7 @@ public class MessageTest {
 
     @Test
     public void testMessageLengthSuccess() {
-        Message msg = new Message("+27718693002", "Hi Kea, can you join us for dinner tonight?", 0);
+        Message msg = new Message("+27718693002", "Hi Mike, can you join us for dinner tonight?", 0);
         assertEquals("Message ready to send.", msg.checkMessageLength());
     }
 
@@ -40,7 +40,7 @@ public class MessageTest {
 
     @Test
     public void testMessageHashCorrect() {
-        Message msg = new Message("+27718693002", "Hi Kea, can you join us for dinner tonight?", 0);
+        Message msg = new Message("+27718693002", "Hi Mike, can you join us for dinner tonight?", 0);
         // Force ID to start with 00 to match the expected test output
         msg.setMessageIDForTesting("0012345678"); 
         assertEquals("00:0:HITONIGHT", msg.getMessageHash());
@@ -61,10 +61,25 @@ public class MessageTest {
     }
     
     @Test
-    public void testReturnTotalMessages() {
-        Message msg = new Message("+27718693002", "Test", 2);
-        assertEquals(2, msg.returnTotalMessagess());
+    public void testMessage2_DiscardScenario() {
+        String recipient = "08575975889"; // No international code
+        String messageText = "Hi Keegan, did you receive the payment?";
+        
+        Message msg = new Message(recipient, messageText, 1);
+
+        assertEquals("Message ready to send.", msg.checkMessageLength());
+
+        String expectedCellError = "Cell phone number is incorrectly formatted or does not contain an international code. Please correct the number and try again.";
+        assertEquals(expectedCellError, msg.checkRecipientCell());
+
+        String discardResult = msg.sentMessage(2);
+        assertEquals("Press 0 to delete the message.", discardResult);
+        
+        assertNotNull(msg.getMessageID());
+        assertNotNull(msg.getMessageHash());
+        assertEquals(1, msg.returnTotalMessagess());
     }
-}
+}       
+
     
 
