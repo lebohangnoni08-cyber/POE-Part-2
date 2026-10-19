@@ -5,7 +5,6 @@
 package com.mycompany.signup;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
@@ -21,6 +20,7 @@ public class Message {
     private String recipient;
     private String message;
     private String messageHash;
+    private Object gson;
 
     public Message(String recipient, String message, int messageCount) {
         this.recipient = recipient;
