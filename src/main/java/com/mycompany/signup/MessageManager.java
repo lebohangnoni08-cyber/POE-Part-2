@@ -117,6 +117,15 @@ public class MessageManager {
                                " | Message: " + storedMessages[i].getMessageText());
         }
     }
+    
+    // Utility to populate the exact test data from the prompt
+    public void populateTestData() {
+        addMessage(new Message(0, "+27834557896", "Did you get the cake?", "Sent"));
+        addMessage(new Message(1, "+27838884567", "Where are you? You are late! I have asked you to be on time.", "Stored"));
+        addMessage(new Message(2, "+27834484567", "Yohoooo, I am at your gate.", "Disregard"));
+        addMessage(new Message(3, "0838884567", "It is dinner time!", "Sent"));
+        addMessage(new Message(4, "+27838884567", "Ok, I am leaving without you.", "Stored"));
+    }
 }
     
 
